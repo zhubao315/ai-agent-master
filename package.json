@@ -1,0 +1,44 @@
+{
+  "name": "@zhubao315/ai-agent-master",
+  "version": "1.0.0",
+  "description": "AI-Agent 平台全生命周期运维技能，基于真实环境审计，支持原生 Skillshub 安装",
+  "bin": {
+    "ai-agent-master": "bin/install.js"
+  },
+  "files": [
+    "audit/",
+    "references/",
+    "runbooks/",
+    "scripts/",
+    "tests/",
+    "deploy/",
+    "dist/",
+    "bin/",
+    "SKILL.md",
+    "manifest.yaml",
+    "VERSION",
+    "README.md",
+    "CHANGELOG.md",
+    "install-verification.md"
+  ],
+  "scripts": {
+    "postinstall": "node bin/install.js --check-only",
+    "test": "python3 scripts/validate-skill/validate.py && python3 tests/structure/test_structure.py"
+  },
+  "keywords": [
+    "ai-agent",
+    "opencode",
+    "skill",
+    "sre",
+    "devops",
+    "operations"
+  ],
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhubao315/ai-agent-master.git"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,42 @@
+name: ai-agent-master
+skill_version: 1.0.0
+
+target:
+  platform: ai-agent
+  doc_site: https://219.142.87.233:9090/
+  product_endpoints:
+    - https://219.142.87.233:38060/
+    - https://192.168.1.3:8060/
+
+compatibility:
+  supported_versions: "0.9.3（其它版本待验证）"
+  verified_version: "0.9.3"
+  verified_build: "20261121.1795273330"
+  verified_onlyoffice: "9.4.0-session.16-r5-fonts3"
+
+source:
+  repository: https://github.com/zhubao315/ai-agent-master.git
+  repository_scope: documentation-only（无产品后端源码）
+  commit: c0100f468091be5d8ed7e90a46a9be014eefd374
+
+runtime:
+  native_skill_format: "SKILL.md (YAML frontmatter: name, description)"
+  install_api: POST /api/skillshub/private/upload
+  read_api: GET /api/skillshub/private/{skillName}
+  delete_api: DELETE /api/skillshub/private/{skillName}
+  install_root: /data/ai-agent-next/runtime/skillshub/users/<user>/myskills/<skillName>
+
+validation:
+  status: partially_verified
+  verified_at: "2026-11-24"
+  roundtrip_probe: "format-probe-20261124 uploaded/read/deleted OK on 2026-11-24"
+  install: "PASS - native Skillshub upload, content byte-identical on read-back"
+  discovery: "PASS - listed in /api/skillshub/private (25 items)"
+  workspace_load: "PASS - installed via POST /api/v2/workspaces initialSkills; /skills/status showed synced + matching contentHash; temp workspace deleted"
+  agent_invocation: "BLOCKED - POST /api/invoke returned HTTP 400: model upstream unreachable (192.168.1.3:18087 connection refused); not a skill defect"
+  remaining: "Re-run /api/invoke after the configured model service is restored; do not mark as verified before that."
+
+constraints:
+  production_readonly_by_default: true
+  credentials_from_env_only: true
+  no_secret_storage: true
